@@ -1,0 +1,115 @@
+<!--- ===============================================================
+# 태그에 스타일 적용 방법
+- 동일 태그명이 페이지에 많이 존재함
+- 식별 방법
+    >> id : 페이지에 1개만 존재
+    >> class : 페이지에 여러개 존재
+                여러개 요소에 한꺼번에 스타일 적용
+# CSS Selector -----------------------------------------------------
+- <style> <~style> 태그 사이에 페이지 요소 마다 스타일을 설정하는
+                    방식
+- 방법 (1) ID속성을 이용하는 방법
+       (2) CLASS 속성을 이용하는 방법
+       (3) TAG이름 이용하는 방법
+- 확장자가 css인 파일로 저장
+    ==> 해당 스타일을 사용하는 HTML에서는 링크하여 적용
+    ==> <link>
+=====================================================================-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> MY SERVER </title>
+        <style>
+            #tabber{
+                background-color: lightblue;
+                color: white;
+                font-size: x-large;
+            }
+            .balad{
+                color: darkgray;
+                font-size: x-large;
+            }
+        </style>
+    </head>
+    <body>
+        <h3> 곡1 </h3>
+        <p>
+            <pre id="tabber" class="rap">
+                    007         - Tabber-
+
+                Double O 7
+                She's a pro, no hesitation for weapons
+                Said she such a pro, yeah
+                O-Ocean's Eleven
+                Uh
+                Da du da da di da ba da bob da du da
+                Ha-ooh
+                Oh no
+                Oh I cannot resist
+                Does she know?
+                Oh I can't stop the feeling
+                Does she know?
+                Maybe I gotta risk it all
+                Baby, I gotta risk it all
+            </pre>
+            <pre class="rap">
+                Oh, she's a fucking pro
+                Never slow, fast motion like a tennis pro
+                She don't really get too friendly with her enemy
+                Oh maybe she toxic, and I call it “chemistry”
+                I think she down for me
+                (Umm, oh yeah, she down for me)
+                Now watch her, down for me
+                (Yeah, she down for me)
+                Wow, woah, she down for me
+                (But slow it down for me)
+                Now slow it down for me
+                (Now slow it down for me)
+                Double O 7
+                She's a pro, no hesitation for weapons
+                Said she such a pro, yeah
+                O-Ocean's Eleven
+                Uh
+                Da du da da di da ba da bob da du da
+                Ha-ooh
+            </pre>
+        </p>
+        
+        <hr/>
+        <h3> 곡2 </h3>
+        <p>
+            <pre id="carthegarden" class="balad">
+                    명동콜링        -카더가든-
+
+                Oh 달링 떠나가나요
+                새벽별빛 고운 흰눈 위에 떨어져
+                발자국만 남겨두고 떠나가나요
+                크리스마스 저녁 명동거리
+                수많은 연인들 누굴 약 올리나
+                갑자기 추억들이 춤을 추네
+                보고 싶다 예쁜 그대 돌아오라
+                나의 궁전으로
+                바람 불면 어디론가 떠나가는
+                나의 조각배야
+                갑자기 추억들이 춤을 추네
+                쇼 윈도우 비친 내 모습
+                인간이 아냐 믿을 수 없어
+                밤하늘 보름달만 바라보네
+            </pre>
+            <pre>
+                보고 싶다 예쁜 그대 돌아오라
+                나의 궁전으로
+                바람 불면 어디론가 떠나가는
+                나의 조각배야
+                생각해 보면 영화 같았지
+                관객도 없고 극장도 없는
+                언제나 우리들은 영화였지
+                보고 싶다 예쁜 그대 돌아오라
+                보고 싶다 예쁜 그대 돌아오라
+                나의 궁전으로
+                갑자기 추억들이 춤을 추네 
+            </pre>
+        </p>
+
+    </body>
+</html>

@@ -1,0 +1,11 @@
+#a {
+    background-color: lightblue; font-weight: bold;
+    text-align: center; width: 70%; height: 300px;
+    vertical-align: middle; border: 5px; border-radius: 10%;
+}
+
+#b {
+    background-color: lightsteelblue; font-weight: bold;
+}
+
+span {color: red; font-size: 20px;}
