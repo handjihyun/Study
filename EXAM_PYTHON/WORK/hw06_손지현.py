@@ -26,11 +26,14 @@ def magic_square():
         x1 += 1
     
         if (y1 < 0):
-            y1 = size-1   
+            y1 = size-1
+
         if (x1 > size-1):
             x1 = 0
+
         if ms[y1, x1] == 0:
             ms[y1, x1] = i
+        
         else:
             y1 = y + 1
             x1 = x
