@@ -1,3 +1,9 @@
+# 경로 바탕화면으로 변경
+getwd()
+setwd('C:/Users/user/Desktop')
+getwd()
+
+# 데이터 불러오기
 raw_data <- read.csv("titanic_data.csv")
 
 # 1) head 함수를 사용하여 입력된 raw_data를 확인하시오.
