@@ -383,7 +383,6 @@ dat[,1]; dat[,2]
 dat[1,]; dat[2,]
 dat[2, 1]; dat[3, 2]; dat3[3, 2]
 
-
 # =================================================
 # Array
 # name <- array(vector, dim = dimension)
@@ -395,3 +394,165 @@ x2 <- array(1:32, dim = c(2, 2, 4, 2)); x2
 x1[ , ,1]     # 4 X 3
 x1[ , ,2]     # 4 X 3
 x2[ , ,3, 1]  # 2 X 2
+
+# ======================================================
+# apply(): 
+# rnorm(): random function
+# ======================================================
+x_mat <- matrix(rnorm(100), 20, 5)
+x_mat
+
+# Calculate mean values of each columns
+apply(x_mat, 1, mean)
+# Calclate mean values of each rows
+apply(x_mat, 2, mean)
+# Calclate variance values of each columns
+apply(x_mat, 1, var)
+# Calclate mean values of each rows
+apply(x_mat, 2, var)
+
+set.seed(1234)
+rnorm(100)
+
+# ======================================================
+## character
+# ======================================================
+# paste(): attach string
+#   - sep = ' ': defalt
+# ======================================================
+myname <- 'Woo chang'
+paste('My name is', myname, sep = ' ')
+paste0('My name is', myname)
+
+# file name
+file_id = 1533
+paste('Dataset_', file_id, '.txt', sep = '')
+
+# ======================================================
+# nchar(): length of character
+# ======================================================
+test <- c('abcdefg', 'AFFY1245820')
+test <- 'abcdefg'
+nchar(test)
+as.character()
+
+# ======================================================
+# substr(): Extract string
+# ======================================================
+f_name <- 'AFFY1245820'
+substr(f_name, 5, 7)
+substr(f_name, 5, nchar(f_name))
+
+# ======================================================
+# file IO
+# ======================================================
+# current working folder
+getwd()
+
+# Setting the location of the working folder(desktop)
+setwd('C:/Users/user/Desktop')
+
+getwd()
+
+dir()
+
+# Using file editor provided by R
+dat <- data.frame()
+dat <- edit(dat)
+dat
+
+# ======================================================
+# Input Data
+# ======================================================
+# Use "scan"
+x <- scan(file = 'input_noh.txt', what = numeric()); x
+x <- scan(file = 'input_noh.txt', what = character()); x
+x <- scan(file = 'input_noh.txt'); x
+
+# Use "read.table"
+dat <- read.table(file = 'input_noh.txt'); dat
+dat2 <- read.table(file = 'input_noh.txt', header = F); dat2
+
+# Use "read.csv"
+dat <- read.csv("개인정보.csv", fileEncoding = 'euc-kr'); dat
+
+# select height, weight
+dat_info <- dat[, c(2, 3)]; dat_info
+
+# create mean, median, variance row
+stat_info <- c('평균', '중앙값', '분산'); stat_info
+
+# calculate mean
+mean_info <- apply(dat_info, 2, mean);
+mean_info <- as.vector(c('평균', mean_info)); mean_info
+
+dat[6, ] <- mean_info; dat[6, ]
+# dat[(nrow(dat)+1), ] <- mean_info
+
+# calculate median
+median_info <- apply(dat_info, 2, median);
+median_info <- as.vector(c('중앙값', median_info)); median_info
+
+dat[7, ] <- median_info; dat[7, ]
+# dat[(nrow(dat)+1), ] <- median_info
+
+# calculate variance
+var_info <- apply(dat_info, 2, var);
+var_info <- as.vector(c('분산', var_info)); var_info
+
+dat[8, ] <- var_info; dat[8, ]
+# dat[(nrow(dat)+1), ] <- var_info
+
+# export csv file
+write.csv(dat, '작업완료.csv')
+
+# ======================================================
+# Print Data on Console or File
+# ======================================================
+# Use cat(object, file = 'path', sep='\n' or '\t')
+x <- 1:10
+cat(x, file = 'x.txt', sep = '\n')
+cat(x, sep = '\t')
+cat('\n', 1, 'st elememt of x =', x[1])
+
+# Use write.table
+x1 <- 1:20
+x2 <- rep(c("A", "B", "B", "A"), 5)
+x3 <- rep(c(T, F), each = 10)
+
+dat <- cbind(x1, x2, x3)       # change to string
+dat <- data.frame(x1, x2, x3)
+
+write.table(dat, file = 'test1.txt', row.names = T, col.names = T, quote = T, sep = '\t')
+write.table(dat, file = 'test2.txt', row.names = F, col.names = F, quote = F, sep = '\n')
+#                                                                   -> " "
+write.table(dat, file = 'test3.txt', sep = ', ')
+
+# ======================================================
+# Data summary / search Functions
+# ======================================================
+# head() or tail() : print first or end part of data
+dat = read.csv(file = 'test3.txt')
+head(dat, 5)
+tail(dat)
+
+# length(object) or dim(object) : check length or dimension of data
+length(dat[,1])
+dim(dat)
+dim(dat)[1]
+dim(dat)[2]
+nrow(dat); ncol(dat)
+
+# ======================================================
+# Check NA(Not Available) / missing value
+# ======================================================
+# is.na()
+x <- matrix(c(NA, 1, 3, NA, NA, 2), 3, 2)
+is.na(x)
+sum(is.na(x))   # number of missing values
+
+# which() : return index that have TRUE value
+# check location of missing values
+which(is.na(x))               # 1-dimension 
+which(is.na(x), arr.ind = T)  # 2-dimension   # row1 col1 -> exists missing value
+which(is.na(x), T)            # 2-dimension

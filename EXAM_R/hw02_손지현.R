@@ -13,7 +13,7 @@ head(raw_data)
 dim(raw_data)
 
 # 3) raw_data의 첫번째 열에서 성별(Sex)을 추출하고 gender.txt로 저장하시오.
-write.table(raw_data[1,]['Sex'], 'gender.txt')
+write.table(raw_data['Sex'], 'gender.txt')
 
 # 4) raw_data의 2~10 열의 변수를 선택하여 새로운 객체에 저장하고
 #    sub_data.txt로 저장하시오. (구분은 _을 이용할 것)
