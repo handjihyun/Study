@@ -377,3 +377,195 @@ noact(10)
 a
 noact(5, 2)
 a
+
+# ======================================================
+# Basic of Machine Learning
+# ======================================================
+# Bring data
+iris
+
+# explore data
+str(iris)
+head(iris)
+colnames(iris)
+
+plot(iris[, 1] ~ iris[, 4])
+
+# ------------------------------------------------------
+# Linear Regression Model
+# ------------------------------------------------------
+# z <- lm(iris[, 1] ~ iris[, 4]); z
+z <- lm(Sepal.Length ~ Petal.Width, data = iris); z
+# y = 0.8886X + 47776
+
+# add linear Regression Line
+abline(z)
+
+# Prove estimator
+summary(z)
+
+# ------------------------------------------------------
+# Multiple Linear Regression Model
+# ------------------------------------------------------
+zz <- lm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = iris); zz
+summary(zz)
+
+# ------------------------------------------------------
+install.packages('ROCR')    # To draw ROC curve
+install.packages('e1071')   # categorical logistic regression
+install.packages('MASS')    # categorical logistic regression
+install.packages('pscl')
+install.packages('caret')   # data preprocessing
+install.packages('kernlab')
+install.packages('nnet')    # artificial neural network
+install.packages('car')     # data preprocessing
+install.packages('SparseM')
+install.packages('glmnet')  # lasso variable selection method
+install.packages('elasticnet')
+install.packages("corrplot")
+# ------------------------------------------------------
+library("corrplot")
+library('elasticnet')
+library('glmnet')
+library('SparseM')
+library('car')
+library('pscl')
+library('e1071') # categorical logistic regression
+library('MASS')
+
+# categorical logistic regression
+library('caret')
+library('kernlab')
+library('nnet')
+
+# artificial neural network
+library('ROCR')
+
+# ------------------------------------------------------
+# bring data
+data <- read.csv("C:/Users/user/Desktop/company.csv", header = T, fileEncoding = 'cp949')
+
+# data structure
+str(data)
+
+# head of data
+head(data, 6)
+
+# dimension
+dim(data)
+
+# missing data
+colSums(is.na(data))
+
+# fill missing data with median
+for (i in 1: dim(data)[2]){
+  data[is.na(data[, i]), i] = median(data[, i], na.rm = T)
+}
+
+# ------------------------------------------------------
+# Dependent variable Preprocessing
+# between 0 ~ 1
+# ------------------------------------------------------
+data$KIS.신용평점.0A3010 <- ifelse(data$KIS.신용평점.0A3010 <=5, 0, 1)
+data$KIS.신용평점.0A3010 <- as.factor(data$KIS.신용평점.0A3010)
+data$KIS.신용평점.0A3010
+
+# ------------------------------------------------------
+# Split data into Train & Test data
+# - createDataPartition(y = , p = , list = T/F)
+# - p        : rate of train data
+# - list = T : return list / F : return matrix
+# ------------------------------------------------------
+set.seed(123)
+intrain <- createDataPartition(y = data$KIS.신용평점.0A3010, p = 0.7, list = F); intrain
+
+# Check training data
+training <- data[intrain, ]; training
+
+# Check test data
+testing <- data[-intrain, ]; testing
+
+# ------------------------------------------------------
+# Logistic Regression Analysis
+# ------------------------------------------------------
+# Check column names of data
+colnames(data)
+
+m2 <- train(KIS.신용평점.0A3010 ~ 유동비율 + 부채비율 + 순이익증가율 + 총자산회전율 + 이자보상비율 + 단기차입금.총자본,
+            data = training, method = 'glm')
+summary(m2)
+
+
+# Prediction
+predictions2 <- predict(m2, newdata = testing); predictions2
+confusionMatrix(predictions2, testing$KIS.신용평점.0A3010)
+
+# ------------------------------------------------------
+# Decision Tree
+# ------------------------------------------------------
+# install.packages('rpart')
+library('rpart')
+head(training)
+
+m <- rpart(KIS.신용평점.0A3010 ~ 유동비율 + 부채비율 + 순이익증가율 + 총자산회전율 + 이자보상비율 + 단기차입금.총자본,
+           data = training)
+plot(m, compress = T, margin = 0.1)
+text(m, cex = 0.8)
+
+# ------------------------------------------------------
+install.packages('rpart.plot')
+library('rpart.plot')
+prp(m, type = 4, digits = 3)
+
+# prediction
+pre_rpart <- predict(m, newdata = testing)
+head(testing)
+
+pre_rpart <- round(pre_rpart[, 2])
+pre_rpart <- as.vector(pre_rpart)
+pre_rpart <- as.factor(pre_rpart)
+
+test_rpart <- testing$KIS.신용평점.0A3010
+test_rpart <- as.factor(test_rpart)
+confusionMatrix(pre_rpart, test_rpart)
+
+# ------------------------------------------------------
+# Random Forest
+# - Variable selection method (Filter Method)
+# ------------------------------------------------------
+install.packages('randomForest')
+library('randomForest')
+head(training)
+m2 <- randomForest(KIS.신용평점.0A3010 ~ 유동비율 + 부채비율 + 순이익증가율 + 총자산회전율 + 이자보상비율 + 단기차입금.총자본,
+                   data = training)
+m2
+
+# Variable Importance
+importance(m2)
+
+# draw graph
+varImpPlot(m2)
+
+# prediction
+pred <- as.factor(as.vector(predict(m2, testing))); pred
+
+confusionMatrix(pred, testing$KIS.신용평점.0A3010)
+
+# ------------------------------------------------------
+# Artificial Neural Network
+# - nnet(..., size = num, linout = T/F, MaxNWts = num)
+#   * size    : nodes of hidden layer number
+#   * linout  : activation function F => logistic
+#                                  T => linear
+#   * MaxNWts : max number of weights (default = 1000)
+# ------------------------------------------------------
+m <- nnet(KIS.신용평점.0A3010 ~ 유동비율 + 부채비율 + 순이익증가율 + 총자산회전율 + 이자보상비율 + 단기차입금.총자본,
+          size = 5, linout = F, MaxNWts = 1000, data = training)
+
+pre_nnet <- predict(m, newdata = testing)
+head(pre_nnet)
+
+pre_nnet <- as.factor(round(pre_nnet)); pre_nnet
+
+# prediction
+confusionMatrix(pre_nnet, testing$KIS.신용평점.0A3010)
