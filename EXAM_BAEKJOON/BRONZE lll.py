@@ -16,14 +16,18 @@ min(abs(w - x), abs(h - y), x, y)
 # 둘째 줄부터 N개의 줄에 걸쳐 각 정수가 주어진다.
 # 주어지는 정수의 절댓값은 9223372036854775807보다 작거나 같다.
 # --------------------------------------------------------------------
-i, test = 0, []
+nums = []
+
 for i in range(3):
     N = int(input())
-    test.append(N)
-    i += 1
 
-j, nums = 0, []
-for i in test:
-    while j < int(i):
+    j = 0
+    while j < N:
         nums.append(int(input()))
         j += 1
+
+l_sum = [sum(nums[0:3]), sum(nums[3:13]), sum(nums[13:])]
+for i in l_sum:
+    if i == 0: print('0')
+    elif i < 0 : print('-')
+    else: print('+')
