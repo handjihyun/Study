@@ -27,6 +27,3 @@ plot(x, dnorm(x, 30000, 10000), type = 'l')
 
 X <- rnorm(n = 10000, mean = 30000, sd = 10000)
 hist(X, col = 'lightblue', breaks = 30)
-
-pnorm(q = 25000, mean = 30000, sd = 10000)
-pnorm(q = 35000, mean = 30000, sd = 10000)
