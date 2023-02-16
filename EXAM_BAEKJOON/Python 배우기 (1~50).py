@@ -141,3 +141,78 @@ n = int(input())
 case = []
 for i in range(n):
     case.append((input().split()))
+
+l_total = []
+for i in case:
+    total = float(i[0])
+    for j in i:
+        if j == "@":
+            total = total * 3
+        elif j == '%':
+            total += 5
+        elif j == '#':
+            total -= 7
+    l_total.append(total)
+
+for _ in l_total:
+    print(f"{_:.2f}")
+
+# Q20. 문자열 S를 입력받은 후에, 각 문자를 R번 반복해 새 문자열 P를 만든 후 출력하는 프로그램을 작성하시오.
+#      즉, 첫 번째 문자를 R번 반복하고, 두 번째 문자를 R번 반복하는 식으로 P를 만들면 된다.
+s = int(input())
+
+str = []
+for i in range(s):
+    str.append(input().split())
+
+for _ in str:
+    num = int(_[0])
+    total = ''
+    for k in _[1]:
+        total += k*num
+    print(total)
+
+# Q21. 첫째 줄에 양의 정수 A가 주어진다. 둘째 줄에 연산자 + 또는 *가 주어진다.
+# 셋째 줄에 양의 정수 B가 주어진다. A와 B는 모두 10의 제곱 형태이고, 길이는 최대 100자리이다.
+nums = []
+
+for i in range(3):
+    nums.append(input())
+    
+for i in range(3):
+    a, b = int(nums[0]), int(nums[-1])
+
+if nums[1] == '*':
+    print(a * b)
+else:
+    print(a + b)
+
+# Q22.시험 점수를 입력받아 90 ~ 100점은 A, 80 ~ 89점은 B, 70 ~ 79점은 C,
+#     60 ~ 69점은 D, 나머지 점수는 F를 출력하는 프로그램을 작성하시오.
+score = int(input())
+
+if score >= 90:
+    print("A")
+elif score >= 80 and score < 89:
+    print("B")
+elif score >= 70 and score < 79:
+    print("C")
+elif score >= 60 and score < 69:
+    print("D")
+else:
+    print("F")
+
+if score >= 90:
+    print("A")
+elif score >= 80:
+    print("B")
+elif score >= 70:
+    print("C")
+elif score >= 60:
+    print("D")
+else:
+    print("F")
+
+# Q23. 세 정수 A, B, C가 주어진다. 이때, 두 번째로 큰 정수를 출력하는 프로그램을 작성하시오.
+num = list(map(int, input().split()))
+print(sorted(num)[1])
