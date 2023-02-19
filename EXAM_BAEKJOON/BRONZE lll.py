@@ -7,7 +7,7 @@
 # --------------------------------------------------------------------
 x, y, w, h = map(int, input().split())
 
-min(abs(w - x), abs(h - y), x, y)
+print(min(abs(w - x), abs(h - y), x, y))
 
 # --------------------------------------------------------------------
 # Q1247. 부호
@@ -27,6 +27,7 @@ for i in range(3):
         j += 1
 
 l_sum = [sum(nums[0:3]), sum(nums[3:13]), sum(nums[13:])]
+
 for i in l_sum:
     if i == 0: print('0')
     elif i < 0 : print('-')
