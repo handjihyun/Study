@@ -104,4 +104,4 @@ alpha = 0.05
 # 
 z <-qnorm(1 - alpha / 2)
 ll <- xbar - z * se
-ul <- xbar -+ z * se
+ul <- xbar + z * se
