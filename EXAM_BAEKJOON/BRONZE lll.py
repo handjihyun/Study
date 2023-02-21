@@ -87,3 +87,25 @@ for i in addr[:-1]:
         else:
             total += 3
     print(total)
+
+# --------------------------------------------------------------------
+# Q.1547 공
+N = int(input())
+
+i, l = 0, []
+while i < N:
+    l.append(input().split())
+    i += 1
+
+for i in l:
+    i[0] = i[1] 
+    print(l)
+
+n = [1, 2, 3]
+n[3] = 4
+n
+
+import numpy as np
+
+num = np.array([i for i in range(1, 1000001)])
+np.shape(num)
