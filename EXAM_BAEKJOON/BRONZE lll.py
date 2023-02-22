@@ -97,15 +97,33 @@ while i < N:
     l.append(input().split())
     i += 1
 
+n = ['1', '2', '3']
 for i in l:
-    i[0] = i[1] 
-    print(l)
+    print(i[0], i[1])
+    n[int(i[0])-1], n[int(i[1])-1] = n[int(i[1])-1], n[int(i[0])-1]
+print(n[0])
 
-n = [1, 2, 3]
-n[3] = 4
-n
 
+# Q.1598 꼬리를 무는 숫자 나열
 import numpy as np
 
 num = np.array([i for i in range(1, 1000001)])
 np.shape(num)
+
+# Q.1703 생장점
+l_leaf = []
+
+while True:
+    leaf = input().split()
+    if leaf[0] == '0': break
+    else:
+        l_leaf.append(leaf)
+
+for i in l_leaf:
+    total = 1
+    for j in range(1, len(i)):
+        if j % 2 != 0:
+            total *= int(i[j])
+        else:
+            total -= int(i[j])
+    print(total)
