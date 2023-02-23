@@ -92,23 +92,26 @@ for i in addr[:-1]:
 # Q.1547 공
 N = int(input())
 
-i, l = 0, []
-while i < N:
-    l.append(input().split())
-    i += 1
+ball = 1
+for i in range(N):
+    a, b = map(int, input().split())
 
-n = ['1', '2', '3']
-for i in l:
-    print(i[0], i[1])
-    n[int(i[0])-1], n[int(i[1])-1] = n[int(i[1])-1], n[int(i[0])-1]
-print(n[0])
+    if a == ball:
+        ball = b
+        continue
+
+    if b == ball:
+        ball = a
+        continue
+
+print(ball)
 
 
 # Q.1598 꼬리를 무는 숫자 나열
-import numpy as np
+a, b = map(int, input().split())
 
-num = np.array([i for i in range(1, 1000001)])
-np.shape(num)
+a, b = a - 1, b - 1
+print(abs(b // 4-a // 4) + abs(b % 4-a % 4))
 
 # Q.1703 생장점
 l_leaf = []
