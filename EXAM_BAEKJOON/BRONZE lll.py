@@ -106,7 +106,6 @@ for i in range(N):
 
 print(ball)
 
-
 # Q.1598 꼬리를 무는 숫자 나열
 a, b = map(int, input().split())
 
