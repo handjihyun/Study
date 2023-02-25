@@ -10,6 +10,22 @@ for i in range(n):
 for i in result:
     print(i)
 
+# -----------------------------------------------------------
+n = int(input())
+
+for i in range(n):
+    a, b = map(int, input().split())
+    
+    new_b = b % 4       # 모든 제곱은 4번의 순환을 가진다.
+    if new_b == 0:
+        new_b == 4
+    
+    number = a ** new_b
+    if number % 10 == 0:
+        print(10)
+    else:
+        print(number % 10)
+
 # 1075번. 나누기
 n = []
 for i in range(2):
