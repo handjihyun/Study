@@ -202,6 +202,70 @@ elif score >= 60:
 else:
     print("F")
 
-# Q23. 세 정수 A, B, C가 주어진다. 이때, 두 번째로 큰 정수를 출력하는 프로그램을 작성하시오.
+# Q.23 세 정수 A, B, C가 주어진다. 이때, 두 번째로 큰 정수를 출력하는 프로그램을 작성하시오.
 num = list(map(int, input().split()))
 print(sorted(num)[1])
+
+# Q.11653 소인수분해
+N = int(input())
+m = 2
+
+while N != 1:
+    if N % m == 0:
+        print(m)
+        N //= m
+    else:
+        m += 1
+        
+# Q.1789 수들의 합
+S = int(input())
+
+n = 1
+while n * (n+1) / 2 <= S:
+    n += 1
+print(n-1)
+
+# Q.2753 윤년
+year = int(input())
+
+if (year % 4 == 0) & (year % 100 != 0):
+    print(1)
+elif (year % 400 == 0):
+    print(1)
+else:
+    print(0)
+
+# Q.10039 평균 점수
+score = []
+for i in range(5):
+    score.append(int(input()))
+
+for i in range(len(score)):
+    if score[i] < 40:
+        score[i] = 40
+
+print(int(sum(score)/len(score)))
+
+total = 0
+for i in range(5):
+    score = int(input())
+
+    if score < 40:
+        score = 40
+    
+    total += score
+print(total // 5)
+
+# Q.1934 최소공배수
+# 유클리드 호제법 : 두 수의 곱에서 두 수의 최대공약수를 나누면 최소공배수를 구할 수 있음
+n = int(input())
+
+for i in range(n):
+    a, b = map(int, input().split())
+    aa, bb = a, b
+
+    while bb != 0:
+        aa = aa % bb
+        aa, bb = bb, aa
+
+    print(a * b // aa)
