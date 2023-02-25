@@ -27,4 +27,13 @@ colnames(mpg)
 #                - size   (point size)
 #                - alpha  (point transparency = 투명도)
 ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy, color = class, size = class))
+  geom_point(mapping = aes(x = displ, y = hwy,
+                           color = class, size = class, alpha = 0.7))
+
+# available color
+colors()[1:10]
+
+# print graph after division window ---------------
+mpgPlot <- ggplot(data = mpg)
+mpgPlot + geom_point(mapping = aes(x = displ, y = hwy))+
+  facet_wrap(~class, nrow = 2)
