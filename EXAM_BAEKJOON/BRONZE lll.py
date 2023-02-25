@@ -33,6 +33,19 @@ for i in l_sum:
     elif i < 0 : print('-')
     else: print('+')
 
+from sys import stdin
+
+for i in range(3):
+    N = int(stdin.readline())
+    nums = [int(stdin.readline()) for i in range(N)]
+
+    if sum(nums) == 0:
+        print("0")
+    elif sum(nums) > 0:
+        print('+')
+    else:
+        print('-')
+
 # --------------------------------------------------------------------
 # Q.1267 핸드폰 요금
 # 영식 요금제는 30초마다 10원씩 청구된다. 민식 요금제는 60초마다 15원씩 청구된다.
@@ -42,27 +55,18 @@ for i in l_sum:
 N = int(input())
 time = list(map(int, input().split()))
 
-y = 0
+y, m = 0, 0
+
 for i in time:
-    if i < 30:
-        y += 10
-    else: 
-        y += 10 * (i // 30 + 1)
+    y += i // 30 * 10 + 10
+    m += i // 60 * 15 + 15
 
-m = 0
-for j in time:
-    if j < 60:
-        m += 15
-    else: 
-        m += 15 * (i // 60 + 1)
-
-if y > m:
-    print("M", m)
-elif y == m:
-    print("Y", "M", y)
+if y < m:
+    print('Y', y)
+elif y > m:
+    print('M', m)
 else:
-    print("Y", y)
-
+    print('Y', 'M', y)
 # --------------------------------------------------------------------
 # Q.1284 집 주소
 # 각 숫자 사이에는 1cm의 여백이 들어가야한다.
