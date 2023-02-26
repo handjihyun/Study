@@ -127,3 +127,65 @@ for i in l_leaf:
         else:
             total -= int(i[j])
     print(total)
+
+# Q.1837 암호제작
+# p, k = map(int, input().split())
+
+# m = 2
+# while True:
+#     if p % m != 0:
+#         m += 1
+#     else:
+#         break
+
+# if max(p//m, m) < k:
+#     print('BAD', min(p//m, m))
+# else:
+#     print('GOOD')
+
+# --------------------------------
+p, k = map(int, input().split())
+
+a = True
+for i in range(2, k):
+    if p % i == 0:
+        print('BAD', i)
+        a = False
+        break
+
+if a:
+    print('GOOD')
+
+# Q.2010 플러그
+import sys
+n = int(sys.stdin.readline())
+
+total = 0
+for i in range(n):
+    plug = int(sys.stdin.readline())
+    total += plug
+
+print(total - (n - 1))
+
+# Q.2441 별 찍기 - 4
+n = int(input())
+
+for i in range(n):
+    print(((n - i) * '*').rjust(n))
+
+# ------------------------------------
+n = int(input())
+
+for i in range(1, n+1):
+    print(' ' * (i - 1) + '*' * (n - i + 1))
+
+# Q.2460 지능형 기차 2
+num, train = 0, []
+
+for i in range(10):
+    a, b = map(int, input().split())
+    num -= a
+    num += b
+    train.append(num)
+
+print(max(train))
