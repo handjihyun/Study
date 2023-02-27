@@ -206,7 +206,6 @@ else:
 num = list(map(int, input().split()))
 print(sorted(num)[1])
 
-<<<<<<< HEAD
 # Q.11653 소인수분해
 N = int(input())
 m = 2
@@ -270,7 +269,7 @@ for i in range(n):
         aa, bb = bb, aa
 
     print(a * b // aa)
-=======
+
 # Q.2480 주사위 세개
 a, b, c = map(int, input().split())
 
@@ -304,4 +303,3 @@ else:
 # Q.3009 네 번째 점
 for i in range(3):
     a, b = map(int, input().split())
->>>>>>> a332d1a93b0846dc3f464bfc99967d8812555d57
