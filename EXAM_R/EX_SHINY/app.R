@@ -47,6 +47,7 @@ server <- function(input, output, session){
 # ======================================================================================
 shinyApp(ui = ui, server = server)
 
+# ---------------------------------------------------------
 # UI 처리 기능 함수
 ui <- fluidPage(
   plotOutput("plot1", width = '400px')
@@ -60,6 +61,49 @@ server <- function(input, output, session){
       plot(cars2, col = 'blue', pch = 20)
     }
   )
+}
+
+shinyApp(ui = ui, server = server)
+
+# ---------------------------------------------------------
+# UI 처리 기능 함수
+ui <- fluidPage(
+  tableOutput('static'),
+  dataTableOutput("dynamic") # 동적 테이블
+)
+
+# UI 출력 내용 생성 함수
+server <- function(input, output, session){
+  output$static <- renderTable(head(mtcars))
+  output$dynamic <- renderDataTable(mtcars, options = list(pageLength = 5))
+}
+
+shinyApp(ui = ui, server = server)
+
+# ---------------------------------------------------------
+# UI 처리 기능 함수
+ui <- fluidPage(
+  textInput("comment", "COMMENT", "input your message"),
+  verbatimTextOutput('msg')
+)
+
+# UI 출력 내용 생성 함수
+server <- function(input, output, session){
+  output$msg <- renderText({input$comment})
+}
+
+shinyApp(ui = ui, server = server)
+
+# ---------------------------------------------------------
+# UI 처리 기능 함수
+ui <- fluidPage(
+  numericInput('obs', "Observations:", 10, min = 1, max = 100),
+  verbatimTextOutput('value')
+)
+
+# UI 출력 내용 생성 함수
+server <- function(input, output, session){
+  output$value <- renderText({input$obs})
 }
 
 shinyApp(ui = ui, server = server)
