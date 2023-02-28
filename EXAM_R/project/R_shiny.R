@@ -16,6 +16,9 @@ dat <- dat[ ,2:11]; dat
 # correaltion
 cor(dat)
 
+library(psych)
+describe(dat)
+
 # y = Rented_Bike_Count, x = each column except Rented_Bike_Count
 par(mfrow = c(3,3))
 plot(Rented_Bike_Count ~ ., data = dat)
@@ -55,6 +58,8 @@ summary(fit.both)
 model_1 <- lm(Rented_Bike_Count ~ Temperature + Hour + Humidity + 
                 Rainfall + Solar_Radiation + Visibility + Snowfall, data = dat)
 
+plot(model_1)
+
 relweights <-
   function(fit,...){                         
     R <- cor(fit$model)   
@@ -90,3 +95,115 @@ result <- relweights(model_1, col = 'blue'); result
 out <- lm(formula = Rented_Bike_Count ~ Temperature + Hour + Humidity + 
             Rainfall + Solar_Radiation + Visibility + Snowfall, data = dat)
 summary(out)
+
+# ----------------------------------------------------------------
+library(shiny)
+
+ui <- fluidPage(
+  # add title of webpage
+  titlePanel("서울 자전거 대여 수에 대한 회귀분석"), 
+  
+  # add webpage content UI
+  # divide window by tab
+  tabsetPanel(
+    
+    tabPanel('DataSet',
+             dataTableOutput('dataset')),
+
+    tabPanel('Information',
+               mainPanel(
+                 h4('str(data)'),
+                 verbatimTextOutput('str'),
+                 br(), h4('Missing Value'),
+                 verbatimTextOutput('missing'),
+                 br(), h4('Describe'),
+                 verbatimTextOutput('describe')
+               )
+             ),
+    tabPanel('Simple Linear Regression',
+             sidebarPanel(selectInput('var_x', 'Select X', c('Hour'='Hour', 'Temperature'='Temperature',
+                                                 'Humidity'='Humidity', 'Wind_speed'='Wind_speed',
+                                                 'Visibility'='Visibility', 'Solar_Radiation'='Solar_Radiation','Rainfall'='Rainfall',
+                                                 'Snowfall'='Snowfall'), selected = 'Hour'),
+                          selectInput('var_y', 'Select Y', c('Rented_Bike_Count' = 'Rented_Bike_Count'))),
+             mainPanel(
+               h4('Scatter Plot'),
+               plotOutput("scatterPlot"),
+               
+               h4('Correaltion Coefficient'),
+               verbatimTextOutput('corr_coef'),
+               
+               h4('Simple Regression'),
+               verbatimTextOutput('reg_fit')
+             )),
+    tabPanel('Multiple Linear Regression',
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput('met', "Method", c('전진선택법'='1', '후진제거법'='2', '변수선택법'='3', '다중공선성' = '4'))
+               ),
+               mainPanel(
+                 verbatimTextOutput('result')
+               )
+             )),
+    tabPanel('Test',
+             verbatimTextOutput('out'),
+             mainPanel(plotOutput('lmplot')))
+)
+)
+
+
+server <- function(input, output){
+  library(MASS)
+  scatter <- dat[, c('Hour', 'Temperature',
+                     'Humidity', 'Wind_speed',
+                     'Visibility', 'Solar_Radiation','Rainfall',
+                     'Snowfall', 'Rented_Bike_Count')]
+  
+  output$dataset <- renderDataTable(dat, options = list(pageLength = 5))
+  
+  output$str <- renderPrint(str(dat))
+  output$missing <- renderPrint(sum(is.na(dat)))
+  output$describe <- renderPrint(describe(dat))
+  
+  output$result <- renderPrint(
+    if (input$met == '1')
+      print(summary(fit.forward))
+    else if (input$met == '2')
+    print(summary(fit.backward))
+    else if (input$met == '3')
+      print(summary(fit.both))
+    else if (input$met == '4')
+      print(sqrt(car::vif(out)) > 2))
+  
+  output$out <- renderPrint(model_1)
+  output$lmplot <- renderPlot({
+    par(mfrow=c(2,2))
+    plot(model_1)})
+  
+  output$scatterPlot <- renderPlot({
+    var_name_x <- as.character(input$var_x)
+    var_name_y <- as.character(input$var_y)
+    
+    plot(scatter[, input$var_x],
+         scatter[, input$var_y],
+         xlab = var_name_x,
+         ylab = var_name_y,
+         main = 'Scatter Plot')
+    
+    fit <- lm(scatter[, input$var_y] ~ scatter[, input$var_x])
+    abline(fit, col = 'red', lwd = 2)
+    
+    output$corr_coef <- renderText({
+      cor(scatter[, input$var_x],
+          scatter[, input$var_y])
+    })
+    
+    output$reg_fit <- renderPrint({
+      fit <- lm(scatter[, input$var_y] ~ scatter[, input$var_x])
+      names(fit$coefficients) <- c('Intercept', input$var_x)
+      summary(fit)$coefficients
+    })
+  })
+}
+
+shinyApp(ui, server)
