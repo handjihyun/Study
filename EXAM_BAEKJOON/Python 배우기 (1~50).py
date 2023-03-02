@@ -301,9 +301,20 @@ else:
     print(0)
 
 # Q.3009 네 번째 점
+l_a = []
+l_b = []
+
 for i in range(3):
     a, b = map(int, input().split())
+    l_a.append(a)
+    l_b.append(b)
 
+for i in range(3):
+    if l_a.count(l_a[i]) == 1:
+        a = l_a[i]
+    if l_b.count(l_b[i]) == 1:
+        b = l_b[i]
+print(a, b)
 
 # Q.2476 주사위 게임
 n = int(input())
@@ -438,5 +449,70 @@ else:
 # Q.5086 배수와 약수
 while True:
     a, b = map(int, input().split())
+    if a == 0: break
+
+    if b % a == 0:
+        print('factor')
+    elif a % b == 0:
+        print('multiple')
+    else:
+        print('neither')
+
+# Q.5717 상근이의 친구들
+while True:
+    a, b = map(int, input().split())
 
     if a == 0: break
+
+    print(a+b)
+
+# Q.9610 사분면
+n = int(input())
+q1, q2, q3, q4, axis = [0] * 5
+
+for i in range(n):
+    a, b = map(int, input().split())
+    if (a == 0) | (b == 0):
+        axis += 1
+    elif (a > 0) & (b > 0):
+        q1 += 1
+    elif (a < 0) & (b > 0):
+        q2 += 1
+    elif (a < 0) & (b < 0):
+        q3 += 1
+    else:
+        q4 += 1
+print(f'Q1: {q1}\nQ2: {q2}\nQ3: {q3}\nQ4: {q4}\nAXIS: {axis}')
+
+# Q.8958 OX퀴즈
+n = int(input())
+
+for i in range(n):
+    test = input()
+
+    score, num = 0, 1
+
+    for i in range(len(test)):
+        if test[i] == 'O':
+            score += num
+            num += 1
+        else:
+            num = 1
+    print(score)
+
+# Q.9506 약수들의 합
+while True:
+    num = int(input())
+
+    if num == -1: break
+
+    num_l = []
+
+    for i in range(1, num):
+        if num % i == 0:
+            num_l.append(i)
+    
+    if sum(num_l) == num:
+        print(num, '=', ' + '.join(map(str, num_l)))
+    else:
+        print(num, 'is NOT perfect.')
