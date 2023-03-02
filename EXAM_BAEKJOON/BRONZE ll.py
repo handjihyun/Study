@@ -58,7 +58,14 @@ for i in range(8):
     horse = list(input())
     
     if i % 2 == 0:
-        
+        for i in range(0, 8, 2):
+            if horse[i] == 'F':
+                total += 1
+    else:
+        for i in range(1, 8, 2):
+            if horse[i] == 'F':
+                total += 1
+print(total)
 
 # 1152번. 단어의 개수
 str = input().split()
