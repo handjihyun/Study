@@ -303,3 +303,140 @@ else:
 # Q.3009 네 번째 점
 for i in range(3):
     a, b = map(int, input().split())
+
+
+# Q.2476 주사위 게임
+n = int(input())
+max_dice = 0
+
+for i in range(n):
+    a, b, c = map(int, input().split())
+
+    if a == b == c:
+        dice = 10000 + a * 1000
+    elif (a == b) | (a == c):
+        dice = 1000 + a * 100
+    elif b == c:
+        dice = 1000 + b * 100
+    else:
+        dice = max(a, b, c) * 100
+
+    if max_dice < dice:
+        max_dice = dice
+print(max_dice)
+
+# Q.2754 학점계산
+score = input()
+
+if score[0] == 'A':
+    if score == 'A+':
+        print(4.3)
+    elif score == 'A0':
+        print(4.0)
+    else:
+        print(3.7)
+elif score[0] == 'B':
+    if score == 'B+':
+        print(3.3)
+    elif score == 'B0':
+        print(3.0)
+    else:
+        print(2.7)
+elif score[0] == 'C':
+    if score == 'C+':
+        print(2.3)
+    elif score == 'C0':
+        print(2.0)
+    else:
+        print(1.7)
+elif score[0] == 'D':
+    if score == 'D+':
+        print(1.3)
+    elif score == 'D0':
+        print(1.0)
+    else:
+        print(0.7)
+else:
+    print(0.0)
+
+# Q.2884 알람 시계
+a, b = map(int, input().split())
+
+if b - 45 < 0:
+    if a == 0:
+        print(23, 60-(45-b))
+    else:
+        print(a-1, 60-(45-b))
+else:
+    print(a, b-45)
+
+#Q.7567 그릇
+dish = input()
+
+height = 10
+for i in range(1, len(dish)):
+    if dish[i-1] != dish[i]:
+        height += 10
+    else:
+        height += 5
+print(height)
+
+# Q.5063 TGN
+n = int(input())
+
+for i in range(n):
+    r, e, c = map(int, input().split())
+
+    if r < e-c:
+        print('advertise')
+    elif r == e-c:
+        print('does not matter')
+    else:
+        print('do not advertise')
+
+# Q.10102 개표
+n = int(input())
+vote = input()
+
+a, b = 0, 0
+for i in vote:
+    if i == 'A':
+        a += 1
+    else:
+        b += 1
+
+if a > b:
+    print('A')
+elif a < b:
+    print('B')
+else:
+    print('Tie')
+
+# Q.10886 0 = not cute / 1 = cute
+n = int(input())
+
+total = 0
+for i in range(n):
+    ans = int(input())
+
+    if ans == 1:
+        total += 1
+    
+if total >= (n//2+1):
+    print("Junhee is cute!")
+else:
+    print("Junhee is not cute!")
+
+# Q.10988 펠린드롬인지 확인하기
+word = input()
+
+if word == ''.join(reversed(word)):
+    print(1)
+else:
+    print(0)
+
+# Q.5086 배수와 약수
+while True:
+    a, b = map(int, input().split())
+
+    if a == 0: break
