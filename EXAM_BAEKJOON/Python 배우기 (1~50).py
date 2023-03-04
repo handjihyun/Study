@@ -516,3 +516,57 @@ while True:
         print(num, '=', ' + '.join(map(str, num_l)))
     else:
         print(num, 'is NOT perfect.')
+
+#Q.10162 전자레인지
+
+# Q.10103 주사위 게임
+n = int(input())
+c, s = [100] * 2
+
+for i in range(n):
+    a, b = map(int, input().split())
+
+    if a < b:
+        c -= b
+    elif a > b:
+        s -= a
+
+print(c, s, sep='\n')
+
+# Q.10214 Baseball
+n = int(input())
+
+for _ in range(n):  
+    Y, K = [0] * 2
+
+    for i in range(9):
+        y, k = map(int, input().split())
+        Y += y
+        K += k
+
+    if Y > K:
+        print('Yonsei')
+    elif Y < K:
+        print('Korea')
+    else:
+        print('Draw')
+
+# Q.11557 Yangjojang of The Year
+n = int(input())
+
+for i in range(n):
+    n2 = int(input())
+    max, school = 0, {}
+
+    for _ in range(n2):
+        a, b = map(str, input().split())
+        school[b] = a
+
+        if int(b) > max:
+            max = int(b)
+
+    print(school[str(max)])
+
+# Q.10757 큰 수 A+B
+a, b = map(int, input().split())
+print(a+b)
