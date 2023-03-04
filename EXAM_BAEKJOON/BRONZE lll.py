@@ -171,6 +171,8 @@ for i in range(n):
     plug = int(sys.stdin.readline())
     total += plug
 
+    # total += int(sys.stdin.readline())
+
 print(total - (n - 1))
 
 # Q.2441 별 찍기 - 4
