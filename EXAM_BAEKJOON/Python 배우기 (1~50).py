@@ -520,9 +520,13 @@ while True:
 #Q.10162 전자레인지
 time = int(input())
 
-if time < 300:
-    print(0, time//60, time%60//10)
-if time // 300 == 1: pass
+if time % 10 != 0:
+    print(-1)
+else:
+    if time >= 300:
+        print(time//300, time%300//60, time%300%60//10)
+    else:
+        print(0, time//60, time%60//10)
 
 
 # Q.10103 주사위 게임
