@@ -518,6 +518,12 @@ while True:
         print(num, 'is NOT perfect.')
 
 #Q.10162 전자레인지
+time = int(input())
+
+if time < 300:
+    print(0, time//60, time%60//10)
+if time // 300 == 1: pass
+
 
 # Q.10103 주사위 게임
 n = int(input())
